@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="eng">
+
+<head>
+    <title>Upload Image Firebase</title>
+
+    <style>
+
+        body{
+            width: 80%;
+            margin: 20px auto;
+        }
+        .hidden{
+            display: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <h1>Upload Image Firebase</h1>
+
+    <progress value="0" max="100" id="uploadProgess">0%</progress>
+
+    <input type="file" value="upload" id="uploadButton">
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAow-HQqLlmdAJTXyBgLw585CwHyE9i6O0",
+            authDomain: "uploadimage-4ec26.firebaseapp.com",
+            databaseURL: "https://uploadimage-4ec26.firebaseio.com",
+            projectId: "uploadimage-4ec26",
+            storageBucket: "uploadimage-4ec26.appspot.com",
+            messagingSenderId: "791544686509"
+        };
+        firebase.initializeApp(config);
+
+        var storage = firebase.storage();
+
+        var progress = document.getElementById('uploadProgress');
+
+        var button = button.getElementById('uploadButton');
+
+        button.addEventListener('change', function(e){
+
+            //get file
+            var file = e.target.files[0];
+
+            var storageRef = storage.ref('images' +file.name);
+
+            storageRef.put(file);
+        })
+
+    </script>
+</body>
+
+</html>
