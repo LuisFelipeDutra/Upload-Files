@@ -44,16 +44,36 @@
 
         var progress = document.getElementById('uploadProgress');
 
-        var button = button.getElementById('uploadButton');
+        var button = document.getElementById('uploadButton');
 
         button.addEventListener('change', function(e){
 
             //get file
             var file = e.target.files[0];
 
-            var storageRef = storage.ref('images' +file.name);
+            var storageRef = storage.ref('images' + file.name);
 
-            storageRef.put(file);
+            var uploadTask = storageRef.put(file);
+
+            uploadTask.on('state_changed', loadUpload, errUpload, completeUpload);
+
+            function loadUpload(data){
+                var percent = (data.bytesTransferred/data.totalBytes) * 100;
+
+                progress.value = percent;
+            }
+
+            function errUpload(err){
+                console.log('error');
+
+                console.log(err)
+            }
+
+            function completeUpload(data){
+                console.log('success')
+
+                console.log(data)
+            }
         })
 
     </script>
