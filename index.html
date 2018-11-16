@@ -22,7 +22,7 @@
 <body>
     <h1>Upload Image Firebase</h1>
 
-    <progress value="0" max="100" id="uploadProgess">0%</progress>
+    <progress value="0" max="100" id="uploadProgress">0%</progress>
 
     <input type="file" value="upload" id="uploadButton">
 
@@ -46,7 +46,7 @@
 
         var button = document.getElementById('uploadButton');
 
-        button.addEventListener('change', function(e){
+        button.addEventListener('change', function (e) {
 
             //get file
             var file = e.target.files[0];
@@ -57,24 +57,30 @@
 
             uploadTask.on('state_changed', loadUpload, errUpload, completeUpload);
 
-            function loadUpload(data){
-                var percent = (data.bytesTransferred/data.totalBytes) * 100;
+            function loadUpload(data) {
+                var percent = (data.bytesTransferred / data.totalBytes) * 100;
 
                 progress.value = percent;
             }
 
-            function errUpload(err){
+            function errUpload(err) {
                 console.log('error');
 
                 console.log(err)
             }
 
-            function completeUpload(data){
+            function completeUpload(data) {
                 console.log('success')
 
                 console.log(data)
             }
         })
+
+        storageRef.getDownloadURL().then(function (url) {
+            document.querySelector('img').src = url;
+        }).catch(function (error) {
+            console.error(error);
+        });
 
     </script>
 </body>
